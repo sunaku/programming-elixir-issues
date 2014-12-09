@@ -1,3 +1,4 @@
 %{"hackney": {:hex, :hackney, "0.14.3"},
   "httpoison": {:hex, :httpoison, "0.4.3"},
-  "idna": {:hex, :idna, "1.0.1"}}
+  "idna": {:hex, :idna, "1.0.1"},
+  "jsx": {:hex, :jsx, "2.3.1"}}

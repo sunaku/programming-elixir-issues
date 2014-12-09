@@ -18,12 +18,15 @@ defmodule Issues.Mixfile do
 
   # Configuration for the OTP application
   def application do
-    [ applications: [ :logger, :httpoison ] ]
+    [
+      applications: [ :logger, :httpoison, :jsx ]
+    ]
   end
 
   defp deps do
     [
-      { :httpoison, "~> 0.4.0" }
+      { :httpoison, "~> 0.4.0" },
+      { :jsx,       "~> 2.0" }
     ]
   end
 end
