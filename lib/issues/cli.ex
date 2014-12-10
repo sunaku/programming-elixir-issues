@@ -8,9 +8,6 @@
 #---
 defmodule Issues.CLI do
 
-  import Issues.TableFormatter, only: [ print_table_for_columns: 2  ]
-
-  @default_count 4
 
   @moduledoc """
   Handle the command line parsing and the dispatch to
@@ -18,7 +15,11 @@ defmodule Issues.CLI do
   table of the last _n_ issues in a github project
   """
 
-  def run(argv) do
+  import Issues.TableFormatter, only: [ print_table_for_columns: 2 ]
+
+  @default_count 4
+
+  def main(argv) do
     argv
       |> parse_args
       |> process
@@ -32,6 +33,7 @@ defmodule Issues.CLI do
 
   Return a tuple of `{ user, project, count }`, or `nil` if help was given.
   """
+
   def parse_args(argv) do
     parse = OptionParser.parse(argv, switches: [ help: :boolean],
                                      aliases:  [ h:    :help   ])
@@ -53,13 +55,12 @@ defmodule Issues.CLI do
 
   def process({user, project, count}) do
     Issues.GithubIssues.fetch(user, project)
-    |> decode_response
-    |> convert_to_list_of_hashdicts
-    |> sort_into_ascending_order
-    |> Enum.take(count)
-    |> print_table_for_columns(["number", "created_at", "title"])
+      |>  decode_response
+      |>  convert_to_list_of_hashdicts
+      |>  sort_into_ascending_order
+      |>  Enum.take(count)
+      |>  print_table_for_columns(["number", "created_at", "title"])
   end
-
 
   def decode_response({:ok, body}), do: body
   def decode_response({:error, error}) do
@@ -69,13 +70,12 @@ defmodule Issues.CLI do
   end
 
   def convert_to_list_of_hashdicts(list) do
-    list
-    |> Enum.map(&Enum.into(&1, HashDict.new))
+    list |> Enum.map(&Enum.into(&1, HashDict.new))
   end
 
   def sort_into_ascending_order(list_of_issues) do
-    Enum.sort list_of_issues, fn i1, i2 ->
-      i1["created_at"] <= i2["created_at"]
-    end
+    Enum.sort list_of_issues,
+              fn i1, i2 -> i1["created_at"] <= i2["created_at"] end
   end
+
 end

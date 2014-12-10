@@ -13,6 +13,7 @@ defmodule Issues.Mixfile do
     [ app:     :issues,
       version: "0.0.1",
       elixir:  ">= 0.0.0",
+      escript: escript_config,
       deps:    deps ]
   end
 
@@ -28,5 +29,9 @@ defmodule Issues.Mixfile do
       { :httpoison, "~> 0.4.0" },
       { :jsx,       "~> 2.0" }
     ]
+  end
+
+  defp escript_config do
+    [ main_module: Issues.CLI ]
   end
 end
