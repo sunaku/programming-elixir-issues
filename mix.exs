@@ -12,8 +12,10 @@ defmodule Issues.Mixfile do
   def project do
     [ app:     :issues,
       version: "0.0.1",
-      elixir:  ">= 0.0.0",
+      name:    "Issues",
+      source_url: "https://github.com/pragdave/issues",
       escript: escript_config,
+      elixir:  ">= 0.0.0",
       deps:    deps ]
   end
 
@@ -27,11 +29,15 @@ defmodule Issues.Mixfile do
   defp deps do
     [
       { :httpoison, "~> 0.4.0" },
-      { :jsx,       "~> 2.0" }
+      { :jsx,       "~> 2.0" },
+      #{ :ex_doc,    github: "elixir-lang/ex_doc" }
+      { :ex_doc,    "~> 0.6.1" },
+      { :earmark,   ">= 0.0.0" }
     ]
   end
 
   defp escript_config do
     [ main_module: Issues.CLI ]
   end
+
 end
